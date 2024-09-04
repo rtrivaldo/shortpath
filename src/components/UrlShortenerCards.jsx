@@ -56,7 +56,7 @@ export default function UrlShortenerCards({ className }) {
         if (response.ok) {
             const data = await response.json();
             console.log("Link created:", data);
-            setShortenedUrlValue(`http://localhost:3000/${data.shortLink}`);
+            setShortenedUrlValue(`https://www.shortpath.site/${data.shortLink}`);
         } else {
             console.error("Error creating link");
         }
