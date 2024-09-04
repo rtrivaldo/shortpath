@@ -10,19 +10,19 @@ export default function Features({ className }) {
             </div>
 
             <div className="mt-10 flex flex-col md:flex-row gap-6 justify-center lg:w-4/5 xl:w-1/2 mx-auto px-4">
-                <div className="shadow-[0_0_10px_0_rgba(0,0,0,0.3)] rounded-lg px-4 py-8 text-center md:max-w-1/3">
+                <div className="shadow-[0_0_10px_0_rgba(0,0,0,0.3)] rounded-lg px-4 py-8 text-center md:w-1/3">
                     <FaLink className="size-10 w-full" />
-                    <h4 className="mt-6 text-xl font-bold">Custom Domains</h4>
-                    <p className="mt-4 leading-tight font-semibold text-neutral-500">Track audience individually for each brand, website or client by using your own domain or subdomain for link shortening.</p>
+                    <h4 className="mt-6 text-xl font-bold">URL Shortener</h4>
+                    <p className="mt-4 leading-tight font-semibold text-neutral-500">Simplify long URLs for easier sharing, better presentation, and enhanced usability.</p>
                 </div>
 
-                <div className="shadow-[0_0_10px_0_rgba(0,0,0,0.3)] rounded-lg px-4 py-8 text-center md:max-w-1/3">
+                <div className="shadow-[0_0_10px_0_rgba(0,0,0,0.3)] rounded-lg px-4 py-8 text-center md:w-1/3">
                     <FaChartLine className="size-10 w-full" />
                     <h4 className="mt-6 text-xl font-bold">Track Clicks</h4>
                     <p className="mt-4 leading-tight font-semibold text-neutral-500">Focus your or your client's efforts on the most promising campaigns by taking actions based on comprehensive statistic.</p>
                 </div>
 
-                <div className="shadow-[0_0_10px_0_rgba(0,0,0,0.3)] rounded-lg px-4 py-8 text-center md:max-w-1/3">
+                <div className="shadow-[0_0_10px_0_rgba(0,0,0,0.3)] rounded-lg px-4 py-8 text-center md:w-1/3">
                     <IoQrCode className="size-10 w-full" />
                     <h4 className="mt-6 text-xl font-bold">QR Codes</h4>
                     <p className="mt-4 leading-tight font-semibold text-neutral-500">Create and track custom QR codes to measure engagement and analyze offline campaign performance.</p>

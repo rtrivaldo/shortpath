@@ -12,7 +12,7 @@ export default function Home() {
                 <h1 className="mt-36 text-center text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight">Make every connection count</h1>
                 <div className="mx-auto mt-2 md:mt-4">
                     <p className="text-center font-semibold sm:text-lg md:text-xl text-neutral-500">
-                        Create short links, QR Codes, share them anywhere. Track what's working, and what's not. All inside the <span className="text-neutral-900 font-bold">ShortPath.</span>
+                        Easily create short links and QR Codes, share them anywhere, and track clicks to understand your engagement—all in one platform with <span className="text-neutral-900 font-bold">ShortPath</span>.
                     </p>
                 </div>
             </div>
