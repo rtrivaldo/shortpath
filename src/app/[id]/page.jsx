@@ -2,6 +2,9 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 
+import { BsFillSignTurnRightFill } from "react-icons/bs";
+import { FaSpinner } from "react-icons/fa6";
+
 export default function Redirect({ params }) {
     const router = useRouter();
     const [longUrl, setLongUrl] = useState("");
@@ -46,5 +49,21 @@ export default function Redirect({ params }) {
         }
     }, [params.id]);
 
-    return null; // This component doesn’t render anything
+    return (
+        <div className="flex justify-center items-center h-screen px-4">
+            <div className="sm:shadow-[0_0_10px_0_rgba(0,0,0,0.3)] rounded-lg p-10 text-center">
+                <div className="flex justify-center">
+                    <BsFillSignTurnRightFill className="size-24 fill-blue-500" />
+                </div>
+                <h1 className="text-4xl md:text-5xl font-semibold mt-6">Hang Tight!</h1>
+                <p className="text-lg md:text-xl font-semibold mt-6 leading-tight">
+                    You're being redirected to another page, <br className="hidden sm:block" /> it may takes up to 10 seconds
+                </p>
+
+                <div className="flex justify-center mt-6">
+                    <FaSpinner className="animate-spin size-6 my-1" />
+                </div>
+            </div>
+        </div>
+    );
 }

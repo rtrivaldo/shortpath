@@ -88,9 +88,11 @@ export default function UrlShortenerCards({ className }) {
     };
 
     const handleTotalClick = async () => {
-        setIsLoadingClicks(true);
-        await fetchLinkDetail();
-        setIsLoadingClicks(false);
+        if (totalClickValue !== "") {
+            setIsLoadingClicks(true);
+            await fetchLinkDetail();
+            setIsLoadingClicks(false);
+        }
     };
 
     const [qrCodeValue, setQrCodeValue] = useState("");
@@ -141,7 +143,7 @@ export default function UrlShortenerCards({ className }) {
                 </div>
 
                 <button className="w-full bg-neutral-900 text-white font-semibold rounded-lg px-4 py-2 mt-6 text-lg flex justify-center items-center" onClick={handleGenerateShortUrl} disabled={isLoadingUrl}>
-                    {isLoadingUrl ? <FaSpinner className="animate-spin" /> : "Shorten URL"}
+                    {isLoadingUrl ? <FaSpinner className="animate-spin size-5 my-1" /> : "Shorten URL"}
                 </button>
             </div>
 
@@ -156,7 +158,7 @@ export default function UrlShortenerCards({ className }) {
                 </div>
 
                 <button className="w-full bg-neutral-900 text-white font-semibold rounded-lg px-4 py-2 mt-6 text-lg flex justify-center items-center" onClick={handleTotalClick} disabled={isLoadingClicks}>
-                    {isLoadingClicks ? <FaSpinner className="animate-spin" /> : "Track Clicks"}
+                    {isLoadingClicks ? <FaSpinner className="animate-spin size-5 my-1" /> : "Track Clicks"}
                 </button>
             </div>
 
