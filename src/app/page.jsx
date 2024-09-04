@@ -1,6 +1,7 @@
 import AccordionComponent from "@/components/AccordionComponent";
 import Features from "@/components/Features";
 import UrlShortenerCards from "@/components/UrlShortenerCards";
+import Link from "next/link";
 
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { IoMdMail } from "react-icons/io";
@@ -33,9 +34,16 @@ export default function Home() {
                     </div>
 
                     <div className="flex justify-center gap-3">
-                        <FaLinkedin className="size-5 text-neutral-500" />
-                        <FaGithub className="size-5 text-neutral-500" />
-                        <IoMdMail className="size-5 text-neutral-500" />
+                        <Link href={"https://www.linkedin.com/in/rivaldo-tandoko/"}>
+                            <FaLinkedin className="size-5 text-neutral-500 hover:text-neutral-900" />
+                        </Link>
+
+                        <Link href={"https://github.com/rtrivaldo"}>
+                            <FaGithub className="size-5 text-neutral-500 hover:text-neutral-900" />
+                        </Link>
+                        <Link href={"mailto:rtrivaldo05@gmail.com"}>
+                            <IoMdMail className="size-5 text-neutral-500 hover:text-neutral-900" />
+                        </Link>
                     </div>
                 </div>
             </footer>
