@@ -6,6 +6,11 @@ const darkerGrotesque = Darker_Grotesque({ subsets: ["latin"] });
 export const metadata = {
     title: "ShortPath",
     description: "A sleek solution designed to manage and shorten your super long links.",
+    icons: {
+        icon: ["/favicon/favicon.ico"],
+        apple: ["/favicon/apple-touch-icon.png"],
+        shortcut: ["/favicon/apple-touch-icon.png"],
+    },
     openGraph: {
         title: "ShortPath",
         description: "A sleek solution designed to manage and shorten your super long links.",
