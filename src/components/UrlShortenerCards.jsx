@@ -1,10 +1,9 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
-import { FaCheck, FaClipboard } from "react-icons/fa6";
+import { useState, useRef } from "react";
+import { FaCheck, FaClipboard, FaSpinner } from "react-icons/fa6";
 
 export default function UrlShortenerCards({ className }) {
-    /* handle Menu Change */
     const [menu, setMenu] = useState("url");
 
     const handleMenu = (event) => {
@@ -12,8 +11,11 @@ export default function UrlShortenerCards({ className }) {
         setMenu(targetId);
     };
 
-    /* handle Url Shortener */
     const [isClicked, setIsClicked] = useState(false);
+    const [isLoadingUrl, setIsLoadingUrl] = useState(false);
+    const [isLoadingClicks, setIsLoadingClicks] = useState(false);
+
+    const shortenedUrl = useRef(null);
 
     const handleCopyToClipboard = () => {
         setIsClicked(true);
@@ -25,8 +27,6 @@ export default function UrlShortenerCards({ className }) {
         }, 3000);
     };
 
-    const shortenedUrl = useRef(null);
-
     const copyToClipboard = () => {
         navigator.clipboard.writeText(shortenedUrl.current.value).catch((err) => {
             console.error("Failed to copy: ", err);
@@ -34,15 +34,15 @@ export default function UrlShortenerCards({ className }) {
     };
 
     const [longLinkValue, setLongLinkValue] = useState("");
+    const [shortenedUrlValue, setShortenedUrlValue] = useState("");
 
     const handleLongLinkInputChange = (event) => {
         const value = event.target.value;
         setLongLinkValue(value);
     };
 
-    const [shortenedUrlValue, setShortenedUrlValue] = useState("");
-
     const handleGenerateShortUrl = async () => {
+        setIsLoadingUrl(true);
         const response = await fetch("/api/links", {
             method: "POST",
             headers: {
@@ -60,31 +60,41 @@ export default function UrlShortenerCards({ className }) {
         } else {
             console.error("Error creating link");
         }
+        setIsLoadingUrl(false);
     };
 
-    /* handle total clicks */
     const [totalClickValue, setTotalClickValue] = useState("");
+    const [totalClick, setTotalClick] = useState(null);
 
     const handleTotalClickInputChange = (event) => {
         const value = event.target.value;
         setTotalClickValue(value);
     };
 
-    const [totalClick, setTotalClick] = useState(null);
-
     const fetchLinkDetail = async () => {
         const id = totalClickValue.slice(-5);
         const response = await fetch(`/api/links/${id}`, { method: "GET" });
-        const data = await response.json();
-        setTotalClick(data.clicks);
+
+        if (response.ok) {
+            const data = await response.json();
+            if (data === null) {
+                setTotalClick(-1);
+            } else {
+                setTotalClick(data.clicks);
+            }
+        } else {
+            console.error("Error fetching link details");
+        }
     };
 
-    const handleTotalClick = () => {
-        fetchLinkDetail();
+    const handleTotalClick = async () => {
+        setIsLoadingClicks(true);
+        await fetchLinkDetail();
+        setIsLoadingClicks(false);
     };
 
-    /* handle Qr Code */
     const [qrCodeValue, setQrCodeValue] = useState("");
+    const [qrCodeUrl, setQrCodeUrl] = useState("");
 
     const handleQrCodeInputChange = (event) => {
         const value = event.target.value;
@@ -92,10 +102,10 @@ export default function UrlShortenerCards({ className }) {
         setQrCodeUrl("");
     };
 
-    const [qrCodeUrl, setQrCodeUrl] = useState("");
-
     const handleGenerateQrCode = async () => {
-        if (qrCodeValue !== "") setQrCodeUrl(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrCodeValue}`);
+        if (qrCodeValue !== "") {
+            setQrCodeUrl(`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${qrCodeValue}`);
+        }
     };
 
     return (
@@ -130,8 +140,8 @@ export default function UrlShortenerCards({ className }) {
                     </div>
                 </div>
 
-                <button className="w-full bg-neutral-900 text-white font-semibold rounded-lg px-4 py-2 mt-6 text-lg" onClick={handleGenerateShortUrl}>
-                    Shorten URL
+                <button className="w-full bg-neutral-900 text-white font-semibold rounded-lg px-4 py-2 mt-6 text-lg flex justify-center items-center" onClick={handleGenerateShortUrl} disabled={isLoadingUrl}>
+                    {isLoadingUrl ? <FaSpinner className="animate-spin" /> : "Shorten URL"}
                 </button>
             </div>
 
@@ -142,11 +152,11 @@ export default function UrlShortenerCards({ className }) {
                 <input type="text" className="w-full border border-neutral-300 rounded-lg px-4 py-2 mt-2 font-semibold" placeholder="Example: https://super-long-url.com/shortpath" onChange={handleTotalClickInputChange} />
 
                 <div className="mt-2">
-                    <h2 className="font-semibold text-lg">Total Clicks: {totalClick === null ? "-" : totalClick}</h2>
+                    <h2 className="font-semibold text-lg">{totalClick === null ? "Total Clicks: -" : totalClick === -1 ? "Shortened URL not found" : `Total Clicks: ${totalClick}`}</h2>
                 </div>
 
-                <button className="w-full bg-neutral-900 text-white font-semibold rounded-lg px-4 py-2 mt-6 text-lg" onClick={handleTotalClick}>
-                    Track Clicks
+                <button className="w-full bg-neutral-900 text-white font-semibold rounded-lg px-4 py-2 mt-6 text-lg flex justify-center items-center" onClick={handleTotalClick} disabled={isLoadingClicks}>
+                    {isLoadingClicks ? <FaSpinner className="animate-spin" /> : "Track Clicks"}
                 </button>
             </div>
 
