@@ -5,10 +5,10 @@ const darkerGrotesque = Darker_Grotesque({ subsets: ["latin"] });
 
 export const metadata = {
     title: "ShortPath",
-    description: "Tool to shorten a long link.",
+    description: "A sleek solution designed to manage and shorten your super long links.",
     openGraph: {
         title: "ShortPath",
-        description: "Tool to shorten a long link.",
+        description: "A sleek solution designed to manage and shorten your super long links.",
         url: "https://www.shortpath.site/",
         siteName: "ShortPath",
         images: [
