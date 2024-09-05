@@ -43,20 +43,27 @@ export default function UrlShortenerCards({ className }) {
 
     const handleGenerateShortUrl = async () => {
         setIsLoadingUrl(true);
+
+        let formattedLink = longLinkValue.trim(); // Trim any extra spaces
+        // Add https:// if the URL doesn't start with http:// or https://
+        if (!formattedLink.startsWith("https://") && !formattedLink.startsWith("http://")) {
+            formattedLink = `https://${formattedLink}`;
+        }
+
         const response = await fetch("/api/links", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                longLink: longLinkValue,
+                longLink: formattedLink,
             }),
         });
 
         if (response.ok) {
             const data = await response.json();
             console.log("Link created:", data);
-            setShortenedUrlValue(`https://www.shortpath.site/${data.shortLink}`);
+            setShortenedUrlValue(`shortpath.site/${data.shortLink}`);
         } else {
             console.error("Error creating link");
         }
